@@ -12,9 +12,10 @@ class DmozItem(scrapy.Item):
     link = scrapy.Field()
     desc = scrapy.Field()
 
-class OnlineItem(scrapy.Item):
+class MyItem(scrapy.Item):
     link = scrapy.Field()
-    img_src = scrapy.Field()
+    large_img = scrapy.Field()
+    small_img = scrapy.Field()
     promo = scrapy.Field()
     price = scrapy.Field()
     title = scrapy.Field()

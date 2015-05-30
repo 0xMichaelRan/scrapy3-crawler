@@ -13,7 +13,8 @@ class TutorialPipeline(object):
     		raise DropItem("Missing title, %s" % item)
     	# item['price'] = item['price'].replace("\r", "").replace("\t", "").replace("\n", "")
     	item['link'] = item['link'][0].encode("ascii").replace("\r", "").replace("\t", "").replace("\n", "")
-    	item['img_src'] = item['img_src'][0].encode("ascii").replace("\r", "").replace("\t", "").replace("\n", "")
+        item['large_img'] = item['large_img'][0].encode("ascii").replace("\r", "").replace("\t", "").replace("\n", "")
+        item['small_img'] = item['small_img'][0].encode("ascii").replace("\r", "").replace("\t", "").replace("\n", "")
     	
     	if len(item['promo']) == 1:
     		item['promo'] = item['promo'][0].encode("ascii").replace("\r", "").replace("\t", "").replace("\n", "")

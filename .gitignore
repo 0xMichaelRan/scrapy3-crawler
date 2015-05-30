@@ -3,3 +3,4 @@ include/
 lib/
 *.pyc
 pip-selfcheck.json
+result.json
