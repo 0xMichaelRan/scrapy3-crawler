@@ -6,8 +6,7 @@ class MySpider(scrapy.Spider):
     name = "myspider"
     # allowed_domains = ["redmart.com"]
     start_urls = [
-        # "http://www.dmoz.org/Computers/Programming/Languages/Python/Books/",
-        # "http://www.dmoz.org/Computers/Programming/Languages/Python/Resources/",
+
         "http://www.fairprice.com.sg/webapp/wcs/stores/servlet/CategoryDisplay?storeId=10001&beginIndex=0&urlRequestType=Base&categoryId=13501&pageView=grid&catalogId=10051",
         "http://www.fairprice.com.sg/webapp/wcs/stores/servlet/CategoryDisplay?storeId=10001&beginIndex=0&urlRequestType=Base&categoryId=13502&pageView=grid&catalogId=10051",
         "http://www.fairprice.com.sg/webapp/wcs/stores/servlet/CategoryDisplay?storeId=10001&beginIndex=0&urlRequestType=Base&categoryId=13503&pageView=grid&catalogId=10051",
