@@ -1,0 +1,2 @@
+cd git/scrapy-examples/tutorial/
+../bin/scrapy crawl myspider -o result.json
