@@ -8,7 +8,10 @@
 import scrapy
 
 
-class DmozItem(scrapy.Item):
-    title = scrapy.Field()
+class FairItem(scrapy.Item):
     link = scrapy.Field()
-    desc = scrapy.Field()
+    large_img = scrapy.Field()
+    small_img = scrapy.Field()
+    promo = scrapy.Field()
+    price = scrapy.Field()
+    title = scrapy.Field()
