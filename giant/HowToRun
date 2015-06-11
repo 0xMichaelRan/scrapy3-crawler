@@ -1,1 +1,1 @@
-../bin/scrapy crawl giant_spider -o result.json
+scrapy crawl giant_spider -o result.json

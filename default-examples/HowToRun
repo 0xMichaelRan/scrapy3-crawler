@@ -1,1 +1,1 @@
-../bin/scrapy runspider mininova.py -o result.json
+scrapy runspider mininova.py -o result.json
