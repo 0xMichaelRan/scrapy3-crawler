@@ -9,9 +9,13 @@ import scrapy
 
 
 class GiantItem(scrapy.Item):
-    small_img = scrapy.Field()
-    product_code = scrapy.Field()
-    old_price = scrapy.Field()
-    now_price = scrapy.Field()
     title = scrapy.Field()
 
+    small_img = scrapy.Field()
+    large_img = scrapy.Field()
+    
+    old_price = scrapy.Field()
+    now_price = scrapy.Field()
+    
+    prd_url  = scrapy.Field()
+    prd_code = scrapy.Field()
