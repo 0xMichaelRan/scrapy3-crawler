@@ -1,1 +1,8 @@
+run: 
+
 scrapy crawl giant_spider -o result.json
+
+
+search mongodb in Robomongo:
+
+db.getCollection('giant').find({ title: { $regex :".*HL Milk.*"} })

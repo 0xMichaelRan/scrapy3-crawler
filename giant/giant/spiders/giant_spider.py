@@ -121,10 +121,14 @@ class Giant_spider(scrapy.Spider):
         for sel in response.xpath('//div[@class="items"]/div'):
             item = GiantItem()
 
+            item['brand'] = sel.xpath('div/div/a/text()').extract()
             item['title'] = sel.xpath('div/div/h3/a/text()').extract()
+
             item['small_img'] = sel.xpath('div/a/div/img/@src').extract()
+
             item['old_price'] = sel.xpath('div/div/div/div/div/text()').extract()
             item['now_price'] = sel.xpath('div/div/div/div/div/strong/text()').extract()
+
             item['prd_code'] = sel.xpath('div/div/div/div/text()[1]').extract()
 
             yield item

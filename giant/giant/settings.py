@@ -19,4 +19,11 @@ ITEM_PIPELINES = {
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'giant (+http://www.yourdomain.com)'
 
-DOWNLOAD_DELAY = 5
+# delay 1 second (change to 5 second)
+DOWNLOAD_DELAY = 1
+
+# connect to Mongodb
+MONGODB_SERVER = "localhost"
+MONGODB_PORT = 27017
+MONGODB_DB = "online_groc"
+MONGODB_COLLECTION = "giant"
