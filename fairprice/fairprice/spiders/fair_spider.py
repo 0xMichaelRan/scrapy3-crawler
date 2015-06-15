@@ -22,16 +22,6 @@ class Fair_spider(scrapy.Spider):
 
     def parse(self, response):
 
-        # for sel in response.xpath('//fieldset/div/div'):
-        #     item = FairItem()
-        #     item['link'] = sel.xpath('a[2]/@href').extract()
-        #     item['large_img'] = sel.xpath('a/p/img/@src').extract()
-        #     item['promo'] = sel.xpath('div/p/text()').extract()
-        #     item['price'] = sel.xpath('span[2]/text()').extract()
-        #     item['title'] = sel.xpath('a/h3/text()').extract()
-        #     yield item
-
-
         # if current page is a product details page, crawl the product info
         for sel in response.xpath('//div[@class="prod_des_wrp_n"]'):
             item = FairItem()

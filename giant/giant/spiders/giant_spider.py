@@ -1,110 +1,122 @@
 import scrapy
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import CrawlSpider, Rule
 
 from giant.items import GiantItem
 
-class Giant_spider(scrapy.Spider):
+
+class Giant_spider(CrawlSpider):
     name = "giant_spider"
-    # allowed_domains = ["redmart.com"]
-    start_urls = [
-
-        "https://giantonline.com.sg/catalog/clothing?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/clothing?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/clothing?order=0&view=grid&perpage=36&Product_page=3",
-
-        "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=6",
-        "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=7",
-        "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=8",
-
-        "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=6",
-        "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=7",
-        "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=8",
-
-        "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=6",
-        "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=7",
-
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=6",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=7",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=8",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=9",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=10",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=11",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=12",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=13",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=14",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=15",
-        "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=16",
-
-        "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=6",
-        "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=7",
-
-        "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=6",
-
-        "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=6",
-        "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=7",
-        "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=8",
-
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=6",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=7",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=8",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=9",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=10",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=11",
-        "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=12",
-
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=1",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=2",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=3",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=4",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=5",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=6",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=7",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=8",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=9",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=10",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=11",
-        "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=12",
+    # allowed_domains = ["giantonline.com.sg"]
+    
+    start_urls = ['https://giantonline.com.sg/']
+    # urls from which the spider will start crawling
+    
+    rules = [
+        Rule(LinkExtractor(allow=[r'catalog/.+']), follow=True, callback='parse'), 
+        # r'page/\d+' : regular expression for http://isbullsh.it/page/X URLs
+        Rule(LinkExtractor(allow=[r'catalog/.+']), callback='parse')
+        # r'\d{4}/\d{2}/\w+' : regular expression for http://isbullsh.it/YYYY/MM/title URLs
     ]
-    #rules = [Rule(LinkExtractor(allow=['/product/\w+']), 'parse')]
+
+    # start_urls = [
+    #     "https://giantonline.com.sg/catalog/clothing?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/clothing?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/clothing?order=0&view=grid&perpage=36&Product_page=3",
+
+    #     "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=6",
+    #     "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=7",
+    #     "https://giantonline.com.sg/catalog/household?order=0&view=grid&perpage=36&Product_page=8",
+
+    #     "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=6",
+    #     "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=7",
+    #     "https://giantonline.com.sg/catalog/home-furnishing?order=0&view=grid&perpage=36&Product_page=8",
+
+    #     "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=6",
+    #     "https://giantonline.com.sg/catalog/furniture?order=0&view=grid&perpage=36&Product_page=7",
+
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=6",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=7",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=8",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=9",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=10",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=11",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=12",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=13",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=14",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=15",
+    #     "https://giantonline.com.sg/catalog/leisure?order=0&view=grid&perpage=36&Product_page=16",
+
+    #     "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=6",
+    #     "https://giantonline.com.sg/catalog/toys-stationery?order=0&view=grid&perpage=36&Product_page=7",
+
+    #     "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/electrical?order=0&view=grid&perpage=36&Product_page=6",
+
+    #     "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=6",
+    #     "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=7",
+    #     "https://giantonline.com.sg/catalog/fresh?order=0&view=grid&perpage=36&Product_page=8",
+
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=6",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=7",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=8",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=9",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=10",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=11",
+    #     "https://giantonline.com.sg/catalog/groceries?order=0&view=grid&perpage=36&Product_page=12",
+
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=1",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=2",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=3",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=4",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=5",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=6",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=7",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=8",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=9",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=10",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=11",
+    #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=12",
+    # ]
 
     def parse(self, response):
 
