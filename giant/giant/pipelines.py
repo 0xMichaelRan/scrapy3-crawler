@@ -49,9 +49,12 @@ class GiantPipeline(object):
         # put the item into mongo db (using 'title' as key)
         self.collection.update(
             {'title': item['title']},
-            dict(item), upsert=True
             # The dict() constructs from sequences of key-value pairs
+            dict(item), upsert=True
+            # MongoDB upsert: update if it is already exist
+            # or insert otherwise.
         )
+
         ## last step, print a msg in console
         log.msg("Grocery item added to MongoDB database!",
                 level=log.DEBUG, spider=spider)

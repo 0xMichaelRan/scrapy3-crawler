@@ -24,7 +24,7 @@ class ColdCrawlerSpider(CrawlSpider):
     #     Rule(LinkExtractor(allow=(r'www.coldstorage.com.sg/shop-online/dairy-chilled-frozen/chilled-frozen', )), callback='parse_item'),
     # )
 
-    start_urls = ['https://giantonline.com.sg/'] 
+    start_urls = ['https://giantonline.com.sg/']
     # urls from which the spider will start crawling
     
     rules = [
@@ -33,7 +33,6 @@ class ColdCrawlerSpider(CrawlSpider):
         Rule(LinkExtractor(allow=[r'catalog/.+']), callback='parse_item')
         # r'\d{4}/\d{2}/\w+' : regular expression for http://isbullsh.it/YYYY/MM/title URLs
     ]
-
 
     def parse_item(self, response):
         i = ColdstorageItem()

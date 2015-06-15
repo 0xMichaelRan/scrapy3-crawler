@@ -13,10 +13,7 @@ class Giant_spider(CrawlSpider):
     # urls from which the spider will start crawling
     
     rules = [
-        Rule(LinkExtractor(allow=[r'catalog/.+']), follow=True, callback='parse'), 
-        # r'page/\d+' : regular expression for http://isbullsh.it/page/X URLs
-        Rule(LinkExtractor(allow=[r'catalog/.+']), callback='parse')
-        # r'\d{4}/\d{2}/\w+' : regular expression for http://isbullsh.it/YYYY/MM/title URLs
+        Rule(LinkExtractor(allow=[r'catalog/.+']), follow=True, callback='parse_item'),
     ]
 
     # start_urls = [
@@ -118,17 +115,7 @@ class Giant_spider(CrawlSpider):
     #     "https://giantonline.com.sg/catalog/dairy-frozen?order=0&view=grid&perpage=36&Product_page=12",
     # ]
 
-    def parse(self, response):
-
-        # for sel in response.xpath('//fieldset/div/div'):
-        #     item = GiantItem()
-        #     item['link'] = sel.xpath('a[2]/@href').extract()
-        #     item['large_img'] = sel.xpath('a/p/img/@src').extract()
-        #     item['promo'] = sel.xpath('div/p/text()').extract()
-        #     item['price'] = sel.xpath('span[2]/text()').extract()
-        #     item['title'] = sel.xpath('a/h3/text()').extract()
-        #     yield item
-
+    def parse_item(self, response):
 
         for sel in response.xpath('//div[@class="items"]/div'):
             item = GiantItem()
