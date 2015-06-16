@@ -20,6 +20,7 @@ class GiantItem(scrapy.Item):
     
     old_price = scrapy.Field()
     now_price = scrapy.Field()
+    promo = scrapy.Field()
     
     prd_url  = scrapy.Field()
     prd_code = scrapy.Field()

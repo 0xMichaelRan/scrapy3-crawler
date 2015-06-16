@@ -26,7 +26,7 @@ class GiantPipeline(object):
         # if is a valid item, then we process the string data
         array = ['title', 'brand', 'quantity', 'unit', 
                 'small_img', 'large_img', 
-                'old_price', 'now_price', 
+                'old_price', 'now_price', 'promo', 
                 'prd_url', 'prd_code']
         
         # for each property of the item, remove all special chars

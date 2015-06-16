@@ -9,7 +9,7 @@ from giant.items import GiantItem
 
 
 class ColdCrawlerSpider(CrawlSpider):
-    name = 'cold_crawler'
+    name = 'cold_spider'
     
     def start_requests(self):
         return [FormRequest(url="https://www.coldstorage.com.sg/api/catalog/department/listdeptcatalphabetically",
@@ -49,10 +49,9 @@ class ColdCrawlerSpider(CrawlSpider):
             item['title'] = [ product["name"] ]
             item['brand'] = [ product["brand"] ]
 
+            # if product["average_weight"] is not None
             if product["average_weight"]:
                 item['quantity'] = [ product["average_weight"] ]
-
-            # if product["average_weight"] is not None
             item['unit'] = [ product["size"] ]
 
             item['small_img'] = [ product["image"].replace("\\", "") ]

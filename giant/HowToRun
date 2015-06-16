@@ -1,1 +1,5 @@
 scrapy crawl giant_spider -o result.json
+
+scrapy crawl cold_spider -o result.json
+
+scrapy crawl fair_spider -o result.json
