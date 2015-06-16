@@ -20,10 +20,10 @@ ITEM_PIPELINES = {
 #USER_AGENT = 'giant (+http://www.yourdomain.com)'
 
 # delay 1 second (change to 5 second)
-DOWNLOAD_DELAY = 1
+DOWNLOAD_DELAY = 5
 
 # connect to Mongodb
 MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017
 MONGODB_DB = "online_groc"
-MONGODB_COLLECTION = "giant"
+MONGODB_COLLECTION = "bigtable"

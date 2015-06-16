@@ -9,9 +9,12 @@ import scrapy
 
 
 class GiantItem(scrapy.Item):
+	
     title = scrapy.Field()
     brand = scrapy.Field()
-
+    quantity = scrapy.Field()
+    unit = scrapy.Field()
+    
     small_img = scrapy.Field()
     large_img = scrapy.Field()
     
@@ -21,4 +24,6 @@ class GiantItem(scrapy.Item):
     prd_url  = scrapy.Field()
     prd_code = scrapy.Field()
     
+    merchant = scrapy.Field()
+    website = scrapy.Field()
     update_time = scrapy.Field()
