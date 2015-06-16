@@ -5,8 +5,7 @@ from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 from scrapy.http import FormRequest
 
-from coldstorage.items import ColdstorageItem
-
+from giant.items import GiantItem
 
 class ColdCrawlerSpider(CrawlSpider):
     name = 'cold_crawler'
