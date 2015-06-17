@@ -1,0 +1,12 @@
+from tumblelog.models import *
+post = Post(title="Hello World!",slug="hello-world",body = "Welcome to my new shiny Tumble log powered by MongoDB and Django-MongoDB!")
+post.save()
+
+post.comments
+comment = Comment(author="Joe Bloggs",body="Great post! I'm looking forward to reading your blog")
+post.comments.append(comment)
+post.save()
+
+post = Post.objects.get()
+post
+post.comments
