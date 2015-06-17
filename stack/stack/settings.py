@@ -67,7 +67,8 @@ NEWSPIDER_MODULE = 'stack.spiders'
 
 ITEM_PIPELINES = ['stack.pipelines.MongoDBPipeline', ]
 
-MONGODB_SERVER = "localhost"
+# MONGODB_SERVER = "localhost"
+MONGODB_SERVER = "128.199.103.166"
 MONGODB_PORT = 27017
 MONGODB_DB = "stackoverflow"
 MONGODB_COLLECTION = "questions"

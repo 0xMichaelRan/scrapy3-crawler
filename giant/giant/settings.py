@@ -23,7 +23,8 @@ ITEM_PIPELINES = {
 DOWNLOAD_DELAY = 5
 
 # connect to Mongodb
-MONGODB_SERVER = "localhost"
+MONGODB_SERVER = "128.199.103.166"
+# MONGODB_SERVER = "localhost"
 MONGODB_PORT = 27017
 MONGODB_DB = "online_groc"
 MONGODB_COLLECTION = "bigtable"
