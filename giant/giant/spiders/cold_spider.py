@@ -54,7 +54,7 @@ class ColdCrawlerSpider(CrawlSpider):
                 item['quantity'] = [ product["average_weight"] ]
             item['unit'] = [ product["size"] ]
 
-            item['small_img'] = [ product["image"].replace("\\", "") ]
+            item['small_img'] = [ "http://www.coldstorage.com.sg" + product["image"].replace("\\", "") ]
 
             item['old_price'] = [ product["highest_price"] ]
             item['now_price'] = [ product["lowest_price"] ]
@@ -62,6 +62,6 @@ class ColdCrawlerSpider(CrawlSpider):
             item['prd_code'] = [ product["product_id"] ]
 
             item['merchant'] = "Cold Storage"
-            item['website'] = "www.coldstorage.com.sg"
+            item['website'] = "http://www.coldstorage.com.sg"
 
             yield item

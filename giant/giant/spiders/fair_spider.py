@@ -37,7 +37,7 @@ class Fair_spider(scrapy.Spider):
             item['prd_url'] = response.url
             
             item['merchant'] = "Fairprice"
-            item['website'] = "www.fairprice.com.sg"
+            item['website'] = "http://www.fairprice.com.sg"
 
             yield item
 

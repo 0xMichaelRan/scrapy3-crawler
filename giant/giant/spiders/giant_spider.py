@@ -13,7 +13,8 @@ class Giant_spider(CrawlSpider):
     # urls from which the spider will start crawling
     
     rules = [
-        Rule(LinkExtractor(allow=[r'catalog/.+']), follow=True, callback='parse_item'),
+        Rule(LinkExtractor(allow=[r'catalog/.+']), follow=True, 
+            callback='parse_item'),
     ]
 
     def parse_item(self, response):
@@ -32,6 +33,6 @@ class Giant_spider(CrawlSpider):
             item['prd_code'] = sel.xpath('div/div/div/div/text()[1]').extract()
 
             item['merchant'] = "Giant"
-            item['website'] = "giantonline.com.sg"
+            item['website'] = "http://giantonline.com.sg"
 
             yield item
