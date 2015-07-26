@@ -1,0 +1,1 @@
+scrapy crawl nikonsg_crawler -o result.json

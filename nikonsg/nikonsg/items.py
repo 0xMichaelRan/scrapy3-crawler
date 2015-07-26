@@ -9,6 +9,22 @@ import scrapy
 
 
 class NikonsgItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    
+    # property of the product
+    category = scrapy.Field()
+    title = scrapy.Field()
+    brand = scrapy.Field()
+    prod_url  = scrapy.Field()
+    prod_code = scrapy.Field()
+    small_img = scrapy.Field()
+    large_img = scrapy.Field()
+    
+    # pricing info
+    price = scrapy.Field()
+    currency = scrapy.Field()
+    country = scrapy.Field()
+    website = scrapy.Field()
+    
+    # realtime and searching info
+    update_time = scrapy.Field()
+    key = scrapy.Field()

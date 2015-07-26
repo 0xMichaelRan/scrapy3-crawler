@@ -1,9 +1,13 @@
 # -*- coding: utf-8 -*-
 import scrapy
+import json
+import re
+
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
 from nikonsg.items import NikonsgItem
+from scrapy.http import FormRequest
 
 
 class NikonsgCrawlerSpider(CrawlSpider):
@@ -13,41 +17,56 @@ class NikonsgCrawlerSpider(CrawlSpider):
     def start_requests(self):
         return [FormRequest(url="http://www.nikon.com.sg/proxies/nikon/solr.proxy?json.wrf=jQuery1601326410169713199_1437873067591&q=*%3A*&indent=off&version=2.2&debug=false&start=0&rows=100&wt=json&fl=*%2Cscore&sort=sort_order_si+desc%2Cpno_ss+asc&hl=off&hl.fl=title_ut&fq=%2Blocale_s%3Aen_SG+%2Bptc_s%3A(LENS)&locale=en_SG&ptc=LENS&facet=true&ProductStatus=ARCHIVE&widgetSite=NikonAsia&_=1437873067894",
                             formdata={},
-                            callback=self.parseCategoryList)]
+                            callback=self.parseItemList)]
 
-    def parseCategoryList(self, response):
-        jsonresponse = json.loads(response.body_as_unicode())
-        total_count = 0
+    def parseItemList(self, response):
+        responseStr = response.body_as_unicode();
+        responseStr = responseStr[responseStr.index('(') + 1 : -1]
 
-        print 'Well, we will do POST to '
-        print 'https://www.coldstorage.com.sg/api/catalog/product/fetch'
-        print 'with category_slug=(the category name) to request item list as Json.'
-        print 'however, we can also leave category_slug blank, '
-        print 'and all items from coldstorage.com.sg will be returned!'
-        print 'That\'s fantastic but we aren\'t doing this right now. '
-        print 'We\'ll query one by one with callback'
+        productListJson = json.loads(responseStr);
+        print 'Now got the json dictionary';
 
-        for oneCategory in jsonresponse:
-        
-            print  ('>>>> Category code (' + oneCategory["code"] + '): ' + 
-                    oneCategory["name"] + '(' + oneCategory["slug"] + 
-                    ') has ' + oneCategory["product_count"] + ' items')
-            print  '>>>>>>>>>>>>>>>>>>>>>>>>>>>>'
-            total_count += int(oneCategory["product_count"])
+        for product in productListJson["response"]["docs"]:
+            product_link = ("http://www.nikon.com.sg/" + 
+                            product["url_s"])
+            print 'product_link is ' + product_link;
+            yield scrapy.Request(product_link, callback=self.parse);
 
-            # for each category, request list of all items using their API
-            yield FormRequest(url="https://www.coldstorage.com.sg/api/catalog/product/fetch",
-                    formdata={'category_slug' : oneCategory["slug"]},
-                    callback=self.parseItemList)
+    def parse(self, response):
+            item = NikonsgItem()
 
-        print ('>>>> All categories fetched, there should be in total ' + 
-               str(total_count) + ' items. ')
-        print '>>>> Let\'s do this. '
+            item['category'] = "lens"
+            item['title'] = "s"
+            item['brand'] = "Nikkor"
 
+            item['prod_url'] = response.url
+            item['small_img'] = "dd"
 
-    def parse_item(self, response):
-        i = NikonsgItem()
-        #i['domain_id'] = response.xpath('//input[@id="sid"]/@value').extract()
-        #i['name'] = response.xpath('//div[@id="name"]').extract()
-        #i['description'] = response.xpath('//div[@id="description"]').extract()
-        return i
+            pricing = response.xpath('//div[@class="price"]/text()')
+            if len(pricing) is 0:
+                print 'try get price again'
+                pricing = response.xpath('//div[@class="price"]/p/text()')
+            
+            if len(pricing) is not 0:
+                pricing = pricing.extract()[0].replace(" ", "").replace(",", "").replace(".", "");
+
+                print 'pricing is ' + pricing + '|'
+                if len(pricing) is 0:
+                    # price on website is a space or empty, but somehow get crawled
+                    return;
+
+                item['price'] = re.findall('\d+', pricing)[0]
+                # http://stackoverflow.com/a/10365251
+                print 'pricccc is ' + item['price']
+            else:
+                # no pricing info on the website
+                return;
+
+            item['currency'] = "SGD"
+            item['country'] = "Singapore"
+            item['website'] = "http://www.nikon.com.sg"
+
+            yield item
+
+    def get_num(x):
+        return int(''.join(ele for ele in x if ele.isdigit()))
