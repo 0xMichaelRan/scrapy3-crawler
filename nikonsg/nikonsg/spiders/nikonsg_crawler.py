@@ -6,15 +6,15 @@ import re
 from scrapy.linkextractors import LinkExtractor
 from scrapy.spiders import CrawlSpider, Rule
 
-from nikonsg.items import NikonsgItem
+from nikonsg.items import NikonItem
 from scrapy.http import FormRequest
 
 
-class NikonsgCrawlerSpider(CrawlSpider):
+class NikonSgCrawlerSpider(CrawlSpider):
     name = 'nikonsg_crawler'
     allowed_domains = ['www.nikon.com.sg']
     # http://www.nikon.com.sg/en_SG/products/categories/nikkor?
-    
+
     def start_requests(self):
         return [FormRequest(url="http://www.nikon.com.sg/proxies/nikon/solr.proxy?json.wrf=jQuery1601326410169713199_1437873067591&q=*%3A*&indent=off&version=2.2&debug=false&start=0&rows=100&wt=json&fl=*%2Cscore&sort=sort_order_si+desc%2Cpno_ss+asc&hl=off&hl.fl=title_ut&fq=%2Blocale_s%3Aen_SG+%2Bptc_s%3A(LENS)&locale=en_SG&ptc=LENS&facet=true&ProductStatus=ARCHIVE&widgetSite=NikonAsia&_=1437873067894",
                             formdata={},
@@ -34,7 +34,7 @@ class NikonsgCrawlerSpider(CrawlSpider):
             yield scrapy.Request(product_link, callback=self.parse);
 
     def parse(self, response):
-            item = NikonsgItem()
+            item = NikonItem()
 
             item['category'] = "lens"
             item['title'] = response.xpath('//h2[@class="nik_product_title"]/text()').extract()[0]

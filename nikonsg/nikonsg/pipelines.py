@@ -29,7 +29,7 @@ class NikonsgPipeline(object):
 
         # put the item into mongo db (using 'title' as key)
         self.collection.update(
-            {'key': item['key']},
+            {'key': item['key'], 'currency': item['currency']},
             dict(item), upsert=True
         )
         # The dict() constructs from sequences of key-value pairs

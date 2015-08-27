@@ -1,1 +1,4 @@
-scrapy crawl nikonsg_crawler -o result.json
+scrapy crawl nikonsg_crawler 
+scrapy crawl nikonusa_crawler 
+
+-o result.json

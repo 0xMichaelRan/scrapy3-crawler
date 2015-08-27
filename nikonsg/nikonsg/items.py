@@ -8,7 +8,7 @@
 import scrapy
 
 
-class NikonsgItem(scrapy.Item):
+class NikonItem(scrapy.Item):
     
     # property of the product
     category = scrapy.Field()
